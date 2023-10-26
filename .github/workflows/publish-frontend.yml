@@ -7,7 +7,7 @@ on:
       - "packages/utils/**"
       - ".github/workflows/publish-frontend.yml"
     branches:
-      - "release/frontend"
+      - "main"
 
 env:
   REGISTRY: ghcr.io

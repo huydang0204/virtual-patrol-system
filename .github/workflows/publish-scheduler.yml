@@ -7,7 +7,7 @@ on:
       - "packages/utils/**"
       - ".github/workflows/publish-scheduler.yml"
     branches:
-      - "release/scheduler"
+      - "main"
 
 env:
   REGISTRY: ghcr.io
