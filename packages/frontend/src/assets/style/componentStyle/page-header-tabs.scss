@@ -1,0 +1,18 @@
+.header-tabs {
+  display: flex;
+  cursor: pointer;
+
+  .a-tab {
+    width: 170px;
+    margin-right: 16px;
+    display: flex;
+    align-items: center;
+    padding: 12px 18px;
+    border-radius: 8px;
+
+    .tab-icon {
+      width: 50px;
+      margin-right: 15px
+    }
+  }
+}

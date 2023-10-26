@@ -1,0 +1,65 @@
+name: Test E2E Frontend
+
+on:
+  push:
+    paths:
+      - "packages/frontend/**"
+      - ".github/workflows/test-e2e-frontend.yml"
+    branches:
+      - "develop"
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  build-and-test-packages:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./
+
+    services:
+      postgres:
+        image: postgres:latest
+        ports:
+          - "5432:5432"
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: vps_dev
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '20'
+
+      - name: Start Redis Server
+        run: |
+          # Start a Redis server using Docker
+          docker run --name redis-server -p 6379:6379 -d redis:latest
+
+      - name: Start Main Backend
+        id: main-backend
+        run: |
+          yarn bootstrap
+          yarn workspace @vps/main-backend build
+          yarn workspace @vps/main-backend start:test &
+          sleep 10s # Give time for the server to start
+
+      - name: Install Chrome
+        id: chrome-install
+        run: |
+          yarn global add chrome
+
+      - name: Start Frontend Server
+        id: frontend
+        run: |
+          yarn workspace @vps/frontend dev &
+          sleep 10s # Give time for the server to start
+
+      - name: Start Frontend Test
+        id: frontend-test
+        run: |
+          yarn workspace @vps/frontend test:e2e-cmd

@@ -1,0 +1,28 @@
+#report-monthly {
+    .title-shift-day {
+        color: black;
+        background-color: #F2B486;
+    }
+
+    .title-shift-night {
+        color: white;
+        background-color: #2C405A;
+    }
+
+    .month-bar {
+        background-color: #C8C7CB;
+
+        .month-col-title {
+            width: 170px;
+        }
+    }
+    
+    .scrollable-container {
+        overflow-x: auto;
+
+    }
+    
+    .scrollable-container > .mt-3 {
+        min-width: 1066px;
+    }
+}

@@ -1,0 +1,48 @@
+.alert-modal-camera-image {
+    position: relative;
+
+    .alert-modal-camera-name {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        z-index: 999 !important;
+        color: $white;
+        background-color: rgba(30, 36, 36, 0.715);
+        border-radius: 8px;
+        padding: 5px 10px;
+    }
+}
+
+.btn-sync {
+    color : green;
+    background-color: transparent;
+    border : 1px solid green;
+
+    &:hover {
+        color : white;
+        background-color: green;
+        border : 1px solid green;
+    }
+}
+
+.placeholder {
+    color : gray;
+    background-color: #232932;
+    border-radius: 7px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: default;
+}
+
+.btn-return-to-prev-checkpoint {
+    font-size : 0.8rem;
+    color : #E5484D;
+    margin-left : 1rem;
+    cursor: pointer;
+    
+    &:hover {
+        text-decoration: underline;
+    }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "@vps/utils",
+  "private": true,
+  "version": "0.0.1",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "rm -f -r lib && tsc"
+  },
+  "dependencies": {
+    "date-fns": "^2.30.0",
+    "maskdata": "^1.1.10",
+    "mysql2": "^2.3.3",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.3.14",
+    "uuid": "^8.3.2"
+  }
+}

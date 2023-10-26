@@ -1,0 +1,94 @@
+.table-section {
+  .tabs {
+    display: flex;
+    margin-left: 3.5px;
+
+    .a-tab {
+      border-radius: 10px 10px 0 0;
+      cursor: pointer;
+      padding: 10px 26px;
+
+      .tab-count {
+        border-radius: 50%;
+        padding: 4px 7px;
+        font-size: 85%;
+      }
+    }
+  }
+}
+
+.table-container {
+  border-radius: 8px;
+  color: $white;
+  background-color: $table-bg;
+  padding: 20px 0;
+
+  input, select, textarea, .date-input {
+    max-width: 400px;
+    border-radius: 0.3rem;
+  }
+
+  .search-input-wrapper {
+    position: relative;
+
+    .search-icon {
+      position: absolute;
+      left: 10px;
+      top: 9px;
+    }
+
+    .search-input {
+      border-radius: 5px;
+      border: 1px solid $gray;
+      outline: none;
+      width: 250px;
+      margin: 0;
+      margin-right: 10px;
+      padding: 10px;
+      padding-left: 40px;
+      color: $white;
+      background-color: $gray-999;
+
+      &::placeholder {
+        color: $gray-600;
+      }
+    }
+
+    .btn-search-clear {
+      position: absolute;
+      right: 20px;
+      top: 9.5px;
+      cursor: pointer;
+    }
+  }
+}
+
+.table-container.dark {
+  color: $white;
+  background-color: $table-bg;
+
+  padding: 20px 0;
+
+  .search-input-wrapper {
+    .search-input {
+      color: $white;
+      background-color: $gray-999;
+    }
+  }
+}
+
+.table-container.light {
+  color: $table-bg;
+  background-color: $white;
+
+  padding: 20px 0;
+  padding-bottom: 0;
+
+  .search-input-wrapper {
+    .search-input {
+      color: $black;
+      background-color: $white;
+      border: 1px solid $gray-300;
+    }
+  }
+}

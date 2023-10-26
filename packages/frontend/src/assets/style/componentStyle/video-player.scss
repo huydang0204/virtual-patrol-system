@@ -1,0 +1,59 @@
+#video-player {
+    .custom-vjs-container {
+        border-radius: 10px !important;
+    }
+
+    .seekbar-container {
+        width: 100%;
+        background-color: #ddd;
+        height: 5px;
+        margin-top: 10px;
+        border-radius: 7px;
+    }
+    
+    .vjs-progress-holder {
+        position: relative;
+        width: 100%;
+    }
+    
+    .vjs-progress-holder {
+        width: 0%;
+        background-color: #007bff6a !important;
+        height: 100%;
+    }
+    
+    .vjs-poster {
+        border-radius: 10px !important;
+        width: 100%;
+        height: 100%;
+    }
+    
+    .vjs-progress-holder {
+        display: block !important;
+    }
+    
+    .vjs-progress-holder .vjs-play-progress {
+        background-color: #e2384c !important;
+    }
+    
+    .vjs-control-bar {
+        background-color: transparent !important;
+    }
+    
+    .video-js .vjs-fullscreen-control {
+        position: absolute !important;
+        right: 0;
+        width: 3em !important;
+    }
+    .video-js .vjs-control {
+        right: 15px;
+    }
+
+    .custom-video-js-class {
+        .vjs-error-display, .vjs-modal-dialog {
+            .vjs-modal-dialog .vjs-modal-dialog-content {
+                padding: 60px 24px !important;   
+            }
+        }
+    }
+}

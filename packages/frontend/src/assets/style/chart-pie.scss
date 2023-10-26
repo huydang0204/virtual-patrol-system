@@ -1,0 +1,33 @@
+#pie-chart {
+  .pie-chart-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .apexcharts-pie-label {
+    }
+
+    .apexcharts-legend {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      gap: 2px;
+    }
+
+    .apexcharts-legend-series {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 3px;
+
+      .apexcharts-legend-text {
+        text-transform: capitalize;
+      }
+    }
+    
+    .apexcharts-pie-series path {
+      stroke-width: 0 !important;
+    }
+}
+  

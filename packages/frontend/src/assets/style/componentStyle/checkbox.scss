@@ -1,0 +1,25 @@
+.checkbox-container {
+  width: 18px;
+  min-width: 18px;
+  height: 18px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1px;
+  border-radius: 5px;
+}
+
+.unchecked {
+  width: 18px;
+  min-width: 18px;
+  height: 18px;
+  border: 1.5px solid $gray;
+  border-radius: 5px;
+  padding: 0.7px;
+}
+
+.disabled {
+  cursor: not-allowed !important;
+  opacity: 0.3;
+}

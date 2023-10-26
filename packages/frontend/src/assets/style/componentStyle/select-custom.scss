@@ -1,0 +1,67 @@
+#custom-select-container {
+    position: relative;
+    user-select: none;
+
+    .select-picker-input {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        position: relative;
+        min-height: 30px;
+        background-color: $white;
+        border-radius: 7px;
+        border: 1px solid #CED4DA;
+        width: 100%;
+        padding: 0 10px;
+    
+        &:hover {
+          cursor: pointer;
+        }
+      }
+
+    .select-picker-container {
+        position: absolute;
+        top: 36px;
+        width: auto;
+        max-width: 300px;
+        z-index: 999;
+        
+        .select-picker-inner-wrapper {
+            border-radius: 7px;
+            border: 1px solid #5d5c5c;
+            min-width: 108px;
+            max-height: 220px;
+            overflow: hidden;
+            
+            .option {
+                padding: 10px;
+
+                &:hover {
+                  cursor: pointer;
+                    background-color: #ced4da7e;
+                }
+            }
+
+            .selected {
+              color: $white;
+              background-color: $primary;
+            }
+        }
+      }
+
+    .select-picker-container.light {
+      .select-picker-inner-wrapper {
+        color: #343439;
+        background-color: $white;
+        overflow: auto;
+      }
+    }
+    .select-picker-container.dark {
+      .select-picker-inner-wrapper {
+        color: $white;
+        background-color: #343439;
+        overflow: auto;
+      }
+    }
+}

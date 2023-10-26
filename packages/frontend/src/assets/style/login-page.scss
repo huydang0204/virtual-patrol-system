@@ -1,0 +1,61 @@
+.login-page {
+  position: relative;
+  height: 100vh;
+}
+
+#login-background {
+  background: url("/assets/images/login-fixed-background.jpeg") no-repeat 50% fixed;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+#login-form {
+  padding: 40px 40px 60px 40px;
+  background-color: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 45%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  @include media-breakpoint-down(md) {
+    width: 90%;
+    height: 80%;
+    margin: 0 auto;
+
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .company-logo img {
+    width: 150px;
+    height: auto;
+    position: absolute;
+    top: 50px;
+    left: 50px;
+  }
+
+  .login-form-container {
+    padding: 0 40px;
+    max-width: 450px;
+
+    @include media-breakpoint-down(md) {
+      padding: 0 20px;
+    }
+
+    @include media-breakpoint-down(sm) {
+      padding: 0 20px;
+    }
+  }
+}

@@ -1,0 +1,17 @@
+.idea/
+dist
+node_modules
+build
+yarn-error.log
+._*
+.DS_Store
+.orig
+.rej
+*.iml
+
+#image
+p-*.jpg
+
+#video
+*.mp4
+cypress/screenshots

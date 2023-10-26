@@ -1,0 +1,8 @@
+{
+  "ignore": [
+    "lib/*.js",
+    "README",
+    ".git",
+    "node_modules/**/node_modules"
+  ]
+}

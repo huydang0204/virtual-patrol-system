@@ -1,0 +1,10 @@
+.page-header-title {
+  .redirect-label {
+    padding: 5px;
+
+    &:hover {
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  }
+}

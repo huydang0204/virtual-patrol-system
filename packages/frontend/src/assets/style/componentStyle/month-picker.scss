@@ -1,0 +1,60 @@
+.month-input-container {
+  position: relative;
+  z-index: 99;
+
+  .month-picker-container {
+    color: black;
+    background-color: white;
+    width: 220px;
+    padding: 10px;
+    padding-bottom: 0;
+    border-radius: 8px;
+    box-shadow: 0px 6px 12px rgba(79, 179, 192, 0.15);
+    position: absolute;
+    top: 37px;
+
+    .year {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px 15px;
+
+      .navigation-buttons {
+        display: flex;
+        gap: 20px;
+
+        .navigation-button {
+          cursor: pointer;
+          padding: 5px 10px;
+          box-sizing: border-box;
+          border-radius: 10px;
+        }
+      }
+    }
+
+    .months {
+      display: flex;
+      flex-wrap: wrap;
+
+      .month {
+        flex-basis: 25%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        padding: 10px;
+        padding-bottom: 30px;
+
+        &:hover {
+          cursor: pointer;
+          color: $primary;
+        }
+      }
+
+      .selected {
+        color: $primary;
+        font-weight: bolder;
+      }
+    }
+  }
+}

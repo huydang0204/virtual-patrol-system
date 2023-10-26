@@ -1,0 +1,17 @@
+.form-container {
+  border-radius: 10px;
+  background-color: $gray-soft;
+
+  .btn-edit {
+    height: auto;
+
+    .btn-outline-primary {
+      background-color: transparent;
+
+      &:hover {
+        color: $white;
+        background-color: $primary;
+      }
+    }
+  }
+}

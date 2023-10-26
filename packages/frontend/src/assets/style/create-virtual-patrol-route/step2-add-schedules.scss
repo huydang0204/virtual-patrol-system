@@ -1,0 +1,107 @@
+.schedule-container {
+  border-radius: 10px;
+  background-color: $gray-soft;
+  position: relative;
+
+  .label {
+    max-width: 120px;
+
+    .form-label {
+      margin-bottom: 0;
+    }
+  }
+
+  .label-time {
+    margin-top: 10px;
+  }
+
+  .input {
+    max-width: 250px;
+  }
+
+  .form-control {
+    border: 1px solid gray;
+  }
+
+  .form-select {
+    border: 1px solid gray;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+  }
+
+  .btn-drag {
+    cursor: move;
+    cursor: grab;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+  }
+
+  .btn-add-times {
+    &:hover {
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  }
+
+  .order,
+  .input-cameras {
+    position: relative;
+    min-height: 34px;
+    background-color: $gray-999;
+    border-radius: 7px;
+    border: 1px solid #808080;
+    width: 100%;
+    padding-left: 10px;
+  }
+
+  .btn-open-cameras-table {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    padding: 1px;
+    border-radius: 5px;
+  }
+
+  .btn-remove-checkpoint {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    background-color: $gray-600;
+    height: 34px;
+    width: 34px;
+
+    &:hover {
+      background-color: $red;
+    }
+  }
+
+  .times-wrapper {
+    position: relative;
+
+    .btn-remove-time-wrapper {
+      position: absolute;
+      top: 5px;
+      right: -40px;
+
+      .btn-remove-time {
+        color: white;
+        background-color: $gray-600;
+        padding: 3px 5px;
+
+        &:hover {
+          background-color: $red;
+        }
+      }
+    }
+  }
+
+  .checkbox {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.btn-add-schedule:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}

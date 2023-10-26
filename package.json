@@ -1,0 +1,43 @@
+{
+  "name": "root",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "frontend-bootstrap" : "cd packages/frontend && rm -f \".env.local\" && touch \".env.local\" && echo \"API_HOST=http://localhost:9000/apis\" > \".env.local\"" ,
+    "bootstrap": "yarn clean && yarn install && yarn build:utils && yarn frontend-bootstrap",
+    "build": "rm -rf ./packages/*/dist && yarn workspaces run build",
+    "build:utils": "rm -rf ./packages/utils/lib && yarn workspace @vps/utils build",
+    "clean": "rm -rf ./node_modules && rm -rf ./packages/*/node_modules"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
+    "@types/helmet": "^4.0.0",
+    "@types/morgan": "^1.9.3",
+    "@types/multer": "^1.4.7",
+    "@types/node": "^18.6.4",
+    "@types/node-cron": "^3.0.4",
+    "@types/nodemailer": "^6.4.5",
+    "@types/uuid": "^8.3.4",
+    "@types/validator": "^13.7.5",
+    "@typescript-eslint/eslint-plugin": "^5.32.0",
+    "@typescript-eslint/parser": "^5.32.0",
+    "eslint": "8.22.0",
+    "eslint-plugin-no-loops": "^0.3.0",
+    "eslint-plugin-putout": "^20.0.0",
+    "eslint-plugin-unused-imports": "^2.0.0",
+    "nodemon": "^2.0.19",
+    "putout": "^32.0.6",
+    "supertest": "^6.3.3",
+    "ts-node": "^10.7.0",
+    "tsc-alias": "^1.6.5",
+    "tsconfig-paths": "^3.14.1",
+    "typescript": "^4.6.3"
+  },
+  "dependencies": {
+    "axios": "^1.5.1"
+  }
+}

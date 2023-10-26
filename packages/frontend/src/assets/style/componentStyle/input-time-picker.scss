@@ -1,0 +1,106 @@
+#time-picker {
+    position: relative;
+    user-select: none;
+
+    .time-picker-input {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        position: relative;
+        min-height: 30px;
+        background-color: $white;
+        border-radius: 7px;
+        border: 1px solid #CED4DA;
+        width: 100%;
+        padding: 0 10px;
+    
+        &:hover {
+          cursor: pointer;
+        }
+      }
+
+    .time-picker-container {
+        position: absolute;
+        top: 32px;
+        width: 210px;
+        z-index: 999;
+        
+        .time-picker-inner-wrapper {
+            color: $black;
+            background-color: $white;
+            border: 1px solid #CED4DA;
+            border-radius: 7px;
+            
+            height: 220px;
+            overflow: hidden;
+    
+            .group {
+                .group-title {
+                    text-align: left;
+                    color: $black;
+                    background-color: #CED4DA;
+                    padding: 5px;
+                    padding-left: 10px;
+
+                    // AM, PM title sticky to top, but currently, it will cover the scrolltotop item (end of disbled items)
+                    // position: sticky;
+                    // top: -1px;
+                    // z-index: 1;
+
+                    border-top-left-radius: 6px;
+                    border-top-right-radius: 6px;
+                }
+
+                .group-title._border-top-none {
+                    border-radius: 0;
+                }
+
+                .time {
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: center;
+                    gap: 5px;
+                    padding: 5px 10px;
+
+                    &:hover {
+                        background-color: #ced4da7e;
+                        cursor: pointer;
+                    }
+
+                    .time-24 {
+                        color: gray;
+                    }
+                }
+
+                .selected {
+                    color: $white;
+                    background-color: $primary;
+
+                    .time-24 {
+                        color: whitesmoke;
+                    }
+
+                    &:hover {
+                        color: black;
+                        background-color: #ced4da7e;
+
+                        .time-24 {
+                            color: gray;
+                        }
+                    }
+                }
+
+                .disabled {
+                    color: gray;
+                    cursor: not-allowed;
+                }
+                .time.disabled {
+                    &:hover {
+                        background-color: $white;
+                    }
+                }
+            }
+        }
+      }
+}

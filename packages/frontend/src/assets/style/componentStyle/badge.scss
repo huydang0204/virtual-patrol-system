@@ -1,0 +1,46 @@
+.primary {
+  background-color: $primary;
+  color: $white;
+}
+
+.secondary {
+  background-color: #4a4a51;
+  color: $white;
+}
+
+.success {
+  background-color: $green-transparent;
+  color: $green-light;
+}
+
+.success-fill {
+  background-color: $white;
+  color: $green;
+}
+
+.danger {
+  background-color: $red-transparent;
+  color: $red;
+}
+
+.danger-transparent {
+  background-color: $red-transparent;
+  color: $red;
+}
+
+.btn-badge-close {
+  color: $red;
+}
+
+.btn-badge-close:hover {
+  cursor: pointer !important;
+  border-radius: 50%;
+  padding: 2px;
+  color: white;
+  background-color: $red;
+}
+
+.badge-label {
+  font-size: 11.5px;
+  right: 0;
+}

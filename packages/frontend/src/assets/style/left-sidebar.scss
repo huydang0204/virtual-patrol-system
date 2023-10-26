@@ -1,0 +1,171 @@
+$sub-menu-width: 230px;
+
+#vps-page {
+
+  #left-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1031;
+    width: 0;
+
+    @include transform(translateX(-$menu-width));
+    @include transition(transform 300ms);
+
+    @include media-breakpoint-up(md) {
+      @include transform(translateX(-$menu-md-width));
+    }
+
+    .show-menu {
+      width: $menu-width;
+      background-color: #FFF;
+      height: 100%;
+      position: relative;
+      z-index: 1;
+
+      @include media-breakpoint-up(md) {
+        width: $menu-md-width;
+      }
+
+      .app-logo {
+        padding: 26px 34px;
+        margin-bottom: 20px;
+      }
+
+      .logo-large {
+        width: 172px;
+        height: 44px;
+      }
+
+      .nav-item {
+        padding: 0 20px;
+      }
+
+      .tab {
+        cursor: pointer;
+        position: relative;
+        text-align: center;
+        padding: 20px;
+        background-color: transparent;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 8px;
+        border-radius: 8px;
+        @include transition(all 300ms);
+
+        a {
+          color: inherit;
+        }
+
+        .menu-icon {
+          width: 30px;
+          height: 30px;
+          stroke: $gray;
+
+          &.active {
+            stroke: $white;
+          }
+        }
+
+        &:hover {
+          background-color: $gray-100;
+        }
+
+        &.active {
+          color: $white;
+          background-color: $primary;
+        }
+
+        @include media-breakpoint-up(md) {
+          padding: 15px;
+        }
+      }
+
+      .left-sidebar-toggle-button {
+        position: absolute;
+        bottom: 40px;
+        left: 30px;
+        width: 50px !important;
+
+        &:hover {
+          cursor: pointer !important;
+        }
+      }
+    }
+
+    .show-sub-menu {
+      position: absolute;
+      top: 0;
+      left: $menu-width;
+      background-color: #FFF;
+      height: 100%;
+      border-left: solid 1px $gray-300;
+      width: 230px;
+      box-shadow: 0 3px 30px rgba(0, 0, 0, 0.1), 0 3px 20px rgba(0, 0, 0, 0.1);
+      @include transform(translateX(-$sub-menu-width));
+      @include transition(transform 300ms);
+
+      padding-top: 25px;
+      padding-bottom: 25px;
+
+      @include media-breakpoint-up(md) {
+        left: $menu-md-width;
+      }
+
+      .tab {
+        cursor: pointer;
+        padding: 12px 30px;
+        @include transition(color 300ms);
+        a {
+          color: inherit;
+        }
+
+        i {
+          font-size: 18px;
+          margin-right: 10px;
+          vertical-align: middle;
+          color: $gray;
+        }
+
+        .menu-icon {
+          width: 20px;
+          height: 20px;
+        }
+
+        &:hover {
+          color: $dark-blue;
+        }
+
+        &.active {
+          color: $dark-blue;
+
+          i {
+            color: $dark-blue !important;
+          }
+        }
+      }
+    }
+
+  }
+
+  &.show-menu {
+    #left-sidebar {
+      @include transform(translateX(0));
+    }
+  }
+
+  &.show-sub-menu {
+    #left-sidebar {
+      @include transform(translateX(0));
+
+      .show-sub-menu {
+        @include transform(translateX(0));
+      }
+    }
+  }
+
+}
+
+

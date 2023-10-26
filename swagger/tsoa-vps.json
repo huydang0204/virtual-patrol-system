@@ -1,0 +1,50 @@
+{
+  "entryFile": "src/index.ts",
+  "noImplicitAdditionalProperties": "throw-on-extras",
+  "controllerPathGlobs": [
+    "src/controllers/*.ts"
+  ],
+  "spec": {
+    "outputDirectory": "src/",
+    "specVersion": 3,
+    "securityDefinitions": {
+      "Authorization": {
+        "type" : "apiKey",
+        "name": "Authorization",
+        "in": "header",
+        "description" : "Bearer Token get from Login API (JWT)"
+      }
+    },
+    "spec" : {
+      "servers" : [
+        {
+          "url" : "http://localhost:9000/apis",
+          "description" : "Local environment"
+        }
+      ]
+    }
+  },
+  "ignore": [
+    "**/node_modules/**"
+  ],
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "config/*": [
+        "config/*"
+      ],
+      "controllers/*": [
+        "controllers/*"
+      ],
+      "data/*": [
+        "data/*"
+      ],
+      "types/*": [
+        "types/*"
+      ],
+      "routes/*": [
+        "routes/*"
+      ]
+    }
+  }
+}

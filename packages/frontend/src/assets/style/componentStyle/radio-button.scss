@@ -1,0 +1,32 @@
+#radio-button {
+  .radio-button-container {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  .checked {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid $primary;
+    background-color: transparent;
+
+    .check-div {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: $primary;
+    }
+  }
+
+  .uncheck {
+    border: 4px solid gray;
+    background-color: transparent;
+  }
+
+  .disabled {
+    cursor: not-allowed !important;
+  }
+}

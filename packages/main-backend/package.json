@@ -1,0 +1,63 @@
+{
+  "name" : "@vps/main-backend",
+  "private" : true,
+  "version" : "1.0.0",
+  "author": "Huy Dang",
+  "license" : "MIT",
+  "workspaces" : {
+    "nohoist" : [
+      "**/typeorm",
+      "**/typeorm/*"
+    ]
+  },
+  "scripts" : {
+    "start" : "ENV=production node ./dist/index.js",
+    "start:test": "ENV=test node ./dist/index.js",
+    "dev" : "nodemon",
+    "build" : "rm -f -r dist && tsc && tsc-alias",
+    "debug" : "node --inspect ./dist/index.js",
+    "test" : "ts-node ./src/test.ts",
+    "typeorm" : "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js -d ./src/entities/index.ts",
+    "typeorm:run" : "yarn typeorm -- migration:run",
+    "typeorm:create" : "./node_modules/.bin/typeorm-ts-node-esm migration:create",
+    "typeorm:revert" : "yarn typeorm -- migration:revert",
+    "typeorm:generate" : "yarn typeorm -- migration:generate",
+    "typeorm:drop" : "yarn typeorm -- schema:drop",
+    "typeorm:sync" : "yarn typeorm -- schema:sync",
+    "typeorm:log" : "yarn typeorm -- schema:log"
+  },
+  "dependencies" : {
+    "@vps/utils" : "0.0.1",
+    "async-mqtt" : "^2.6.3",
+    "bcrypt" : "^5.1.0",
+    "cors" : "^2.8.5",
+    "date-fns" : "^2.30.0",
+    "dotenv" : "^16.0.1",
+    "express" : "^4.18.1",
+    "helmet" : "^6.0.0",
+    "joi" : "17.9.1",
+    "jsonwebtoken" : "^8.5.1",
+    "maskdata" : "^1.1.10",
+    "morgan" : "^1.10.0",
+    "multer" : "^1.4.5-lts.1",
+    "mysql2" : "^2.3.3",
+    "node-cron" : "^3.0.2",
+    "nodemailer" : "^6.7.8",
+    "pg" : "^8.11.3",
+    "redis" : "^4.6.5",
+    "reflect-metadata" : "^0.1.13",
+    "sharp" : "^0.32.1",
+    "typeorm" : "^0.3.14",
+    "uuid" : "^8.3.2",
+    "winston" : "^3.8.1",
+    "winston-daily-rotate-file" : "^4.7.1"
+  },
+  "devDependencies" : {
+    "@types/express" : "^4.17.13",
+    "@types/multer" : "^1.4.7",
+    "@types/node" : "^18.6.4",
+    "@types/nodemailer" : "^6.4.5",
+    "@types/uuid" : "^8.3.4",
+    "@types/validator" : "^13.7.5"
+  }
+}

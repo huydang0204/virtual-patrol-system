@@ -1,0 +1,74 @@
+#accordion-lists {
+    .accordions {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 2px;
+        background-color: rgba(52, 52, 58, 0.8);
+        backdrop-filter: blur(3px);
+        padding: 3px;
+        
+        overflow-x: auto;
+        // white-space: nowrap;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        .accordion {
+            width: 100%;
+            color: $black;
+            background-color: $white;
+            padding: 3px 5px;
+            border-radius: 3px;
+
+            .accordion-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .accordion-content {
+                margin-top: 3px;
+                border-top: 0.5px solid rgba(255, 255, 255, 0.493);
+                color: $gray;
+                text-align: left;
+                list-style: none;
+                max-height: 200px;
+                overflow-y: auto;
+
+                li {
+                    padding: 2px 0;
+                    display: flex;
+                    align-items: flex-start;
+                    flex: 1;
+                }
+
+                li:before {
+                    content: "\2022";
+                    color: $primary;
+                    font-size: 1.2em;
+                    margin-right: 0.5em;
+                    align-self: flex-start;
+                }
+            }
+        }
+
+        .active {
+            color: $black;
+            background-color: $white;
+            border: 1px solid $white;
+            border-bottom: none;
+        }
+    }
+
+    .no-data {
+        color: $white;
+        background-color: rgba(52, 52, 58, 0.8);
+        backdrop-filter: blur(3px);
+        padding: 5px;
+    }
+}

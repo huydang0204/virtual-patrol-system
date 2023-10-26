@@ -1,0 +1,99 @@
+#avatars-overlay {
+    cursor: default;
+    display: flex;
+    justify-content: flex-start;
+    gap: 1px;
+    position: relative;
+
+    .avatar-inner-wrapper {
+        width: 25px;
+        height: 25px;
+        overflow: hidden;
+        // position: absolute;
+
+        .img-content {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 1px solid rgb(214, 212, 212);
+            background-color: black;
+        }
+    }
+
+    .additional-avatar {
+        width: 25px;
+        height: 25px;
+        // position: absolute;
+        right: -15px;
+        z-index: 9;
+
+        .rounded-circle {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-color: #ccccccde;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid rgb(214, 212, 212);
+
+            span {
+                color: #404040;
+                font-size: 12px;
+                font-weight: bold;
+            }
+        }
+    }
+}
+
+.avatar-popup-wrapper {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 5px;
+    padding: 7px;
+    border-radius: 10px;
+    z-index: 9999;
+
+    .popup-avatar {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 5px;
+
+        .avatar-img-cover {
+            width: 25px;
+            height: 25px;
+
+            .img-content {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 50%;
+                border: 1px solid white;
+                background-color: black;
+            }
+        }
+    }
+}
+
+.z-index-999 {
+    z-index: 99999 !important;
+}
+
+.tcell-avatar-inner-wrapper {
+    width: 25px;
+    height: 25px;
+
+    .img-content {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 1px solid rgb(214, 212, 212);
+        background-color: black;
+    }
+}

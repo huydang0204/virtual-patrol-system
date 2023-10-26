@@ -1,0 +1,4855 @@
+{
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"ActivityType": {
+				"description": "activity type",
+				"enum": [
+					"UserLogin",
+					"UserLogout",
+					"CreateUser",
+					"BlockUser",
+					"ActivateUser",
+					"DeleteUser",
+					"DownloadAnalyticsReport",
+					"StartPatrolTask",
+					"DownloadTaskReport",
+					"DownloadDailyReport",
+					"DownloadMonthlyReport",
+					"CreateRoute",
+					"UpdateRoute",
+					"DeleteRoute",
+					"CreateSop",
+					"UpdateSop",
+					"DeleteSop",
+					"CreateSite",
+					"UpdateSite",
+					"DeleteSite",
+					"CreateAlertType",
+					"UpdateAlertType",
+					"DeleteAlertType"
+				],
+				"type": "string"
+			},
+			"UserActivityData": {
+				"description": "user activity data used at activity response",
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"avatar": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"status": {
+						"type": "string"
+					},
+					"role": {
+						"type": "string"
+					},
+					"latestLogin": {
+						"type": "string",
+						"format": "date-time"
+					}
+				},
+				"required": [
+					"id",
+					"avatar",
+					"name",
+					"email",
+					"status",
+					"role",
+					"latestLogin"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ActivityResponse": {
+				"description": "response of activity apis",
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"type": {
+						"$ref": "#/components/schemas/ActivityType"
+					},
+					"userId": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"user": {
+						"$ref": "#/components/schemas/UserActivityData"
+					}
+				},
+				"required": [
+					"id",
+					"type",
+					"userId",
+					"description",
+					"createdAt",
+					"user"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ActivityCreateBody": {
+				"description": "request body when creating activity",
+				"properties": {
+					"type": {
+						"type": "string"
+					},
+					"targetName": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"type",
+					"targetName"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AlertTypeResponse": {
+				"description": "response of alert type apis",
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"type": {
+						"type": "string"
+					},
+					"priority": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"actionTaken": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"imageUrl": {
+						"type": "string"
+					},
+					"deletedAt": {
+						"type": "string",
+						"format": "date-time"
+					}
+				},
+				"required": [
+					"id",
+					"type",
+					"priority",
+					"description",
+					"actionTaken",
+					"imageUrl"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AlertTypeList": {
+				"description": "alert type list as response",
+				"properties": {
+					"data": {
+						"items": {
+							"$ref": "#/components/schemas/AlertTypeResponse"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"data"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CountResponse": {
+				"description": "Response for general count",
+				"properties": {
+					"count": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"count"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AlertTypeRequestBody": {
+				"description": "response of alert type apis",
+				"properties": {
+					"type": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"actionTaken": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"imageUrl": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"type",
+					"description",
+					"actionTaken",
+					"imageUrl"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UUID": {
+				"type": "string",
+				"example": "52907745-7672-470e-a803-a2f8feb52944",
+				"description": "Stringified UUIDv4.\nSee [RFC 4112](https://tools.ietf.org/html/rfc4122)",
+				"pattern": "[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-4[0-9A-Fa-f]{3}-[89ABab][0-9A-Fa-f]{3}-[0-9A-Fa-f]{12}"
+			},
+			"CameraStatus": {
+				"type": "string",
+				"enum": [
+					"Recording",
+					"Online",
+					"Offline"
+				],
+				"description": "Camera Status = \"Recording\" or \"Online\" or \"Offline\""
+			},
+			"SopType": {
+				"description": "SOP type",
+				"enum": [
+					"General",
+					"Special"
+				],
+				"type": "string"
+			},
+			"SopResponse": {
+				"description": "response of sop apis",
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"name": {
+						"type": "string"
+					},
+					"type": {
+						"$ref": "#/components/schemas/SopType"
+					},
+					"startDate": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"endDate": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"checklists": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"deletedAt": {
+						"type": "string",
+						"format": "date-time"
+					}
+				},
+				"required": [
+					"id",
+					"name",
+					"type",
+					"startDate",
+					"endDate",
+					"checklists",
+					"createdAt"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CameraResponse": {
+				"description": "response of camera apis",
+				"properties": {
+					"id": {
+						"$ref": "#/components/schemas/UUID"
+					},
+					"name": {
+						"type": "string"
+					},
+					"address": {
+						"type": "string"
+					},
+					"tags": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"lat": {
+						"type": "string"
+					},
+					"lng": {
+						"type": "string"
+					},
+					"status": {
+						"$ref": "#/components/schemas/CameraStatus"
+					},
+					"bearing": {
+						"type": "string"
+					},
+					"siteId": {
+						"type": "number",
+						"format": "double"
+					},
+					"siteName": {
+						"type": "string"
+					},
+					"sops": {
+						"items": {
+							"$ref": "#/components/schemas/SopResponse"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"id",
+					"name",
+					"address",
+					"lat",
+					"lng",
+					"status",
+					"bearing",
+					"siteId",
+					"siteName",
+					"sops"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CameraList": {
+				"description": "camera list as response",
+				"properties": {
+					"data": {
+						"items": {
+							"$ref": "#/components/schemas/CameraResponse"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"data"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CameraUpdateBody": {
+				"description": "request body of updating Camera information",
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"address": {
+						"type": "string"
+					},
+					"lat": {
+						"type": "string"
+					},
+					"lng": {
+						"type": "string"
+					},
+					"bearing": {
+						"type": "string"
+					},
+					"region": {
+						"type": "string"
+					},
+					"tags": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"sopIds": {
+						"items": {
+							"type": "number",
+							"format": "double"
+						},
+						"type": "array"
+					},
+					"siteId": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Record_TaskStatus.number_": {
+				"properties": {
+					"Pending": {
+						"type": "number",
+						"format": "double"
+					},
+					"OnGoing": {
+						"type": "number",
+						"format": "double"
+					},
+					"NotStarted": {
+						"type": "number",
+						"format": "double"
+					},
+					"Paused": {
+						"type": "number",
+						"format": "double"
+					},
+					"Completed": {
+						"type": "number",
+						"format": "double"
+					},
+					"Incomplete": {
+						"type": "number",
+						"format": "double"
+					},
+					"Missed": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"type": "object",
+				"description": "Construct a type with a set of properties K of type T"
+			},
+			"Record_string.number_": {
+				"properties": {},
+				"type": "object",
+				"description": "Construct a type with a set of properties K of type T"
+			},
+			"DashboardAnalyticsResponse": {
+				"description": "response of dashboard-analytics api",
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"siteId": {
+						"type": "number",
+						"format": "double"
+					},
+					"taskCountAnalytics": {
+						"$ref": "#/components/schemas/Record_TaskStatus.number_"
+					},
+					"alertCountAnalytics": {
+						"$ref": "#/components/schemas/Record_string.number_"
+					},
+					"weeklyAlertCountAnalytics": {
+						"items": {
+							"type": "number",
+							"format": "double"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"id",
+					"siteId",
+					"taskCountAnalytics",
+					"alertCountAnalytics",
+					"weeklyAlertCountAnalytics"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"NotificationType": {
+				"description": "Notification Type (InComingTask, DailyReportReady, MonthlyReportReady)",
+				"enum": [
+					"InComingTask",
+					"DailyReportReady",
+					"MonthlyReportReady"
+				],
+				"type": "string"
+			},
+			"NotificationStatus": {
+				"description": "Notification Status",
+				"enum": [
+					"New",
+					"Read"
+				],
+				"type": "string"
+			},
+			"Record_NotificationRelatedDataType.unknown_": {
+				"properties": {
+					"RouteTask": {},
+					"Report": {},
+					"Site": {}
+				},
+				"type": "object",
+				"description": "Construct a type with a set of properties K of type T"
+			},
+			"AppNotification": {
+				"description": "Response Record for notification",
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"type": {
+						"$ref": "#/components/schemas/NotificationType"
+					},
+					"description": {
+						"type": "string"
+					},
+					"alertedUserId": {
+						"type": "string"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"status": {
+						"$ref": "#/components/schemas/NotificationStatus"
+					},
+					"detailData": {
+						"$ref": "#/components/schemas/Record_NotificationRelatedDataType.unknown_"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"FindAndCountResponse_AppNotification_": {
+				"description": "Response with data array, count, limit and offset. Suited for Paging",
+				"properties": {
+					"data": {
+						"items": {
+							"$ref": "#/components/schemas/AppNotification"
+						},
+						"type": "array"
+					},
+					"count": {
+						"type": "number",
+						"format": "double"
+					},
+					"limit": {
+						"type": "number",
+						"format": "double"
+					},
+					"offset": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"data",
+					"count"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"NotiCountResponse": {
+				"description": "Response for count related to Notification",
+				"properties": {
+					"countNew": {
+						"type": "number",
+						"format": "double"
+					},
+					"countRead": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"countNew",
+					"countRead"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"DeleteResponse": {
+				"description": "Response for how many records have been deleted.",
+				"properties": {
+					"deletedCount": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"deletedCount"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"EntityOverallData": {
+				"description": "It stores id and name. Used to minimize entity.",
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"id",
+					"name"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"RouteResponse": {
+				"description": "response of route apis",
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"siteId": {
+						"type": "number",
+						"format": "double"
+					},
+					"allowStartTime": {
+						"type": "number",
+						"format": "double"
+					},
+					"patrolMode": {
+						"type": "string"
+					},
+					"site": {
+						"$ref": "#/components/schemas/EntityOverallData"
+					},
+					"createdUserId": {
+						"type": "string"
+					},
+					"createdUserName": {
+						"type": "string"
+					},
+					"assignedUsers": {
+						"items": {
+							"$ref": "#/components/schemas/EntityOverallData"
+						},
+						"type": "array"
+					},
+					"reminderTime": {
+						"type": "number",
+						"format": "double"
+					},
+					"deleted": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"id",
+					"name",
+					"createdAt",
+					"siteId",
+					"allowStartTime",
+					"patrolMode",
+					"site",
+					"createdUserId",
+					"createdUserName",
+					"assignedUsers",
+					"reminderTime",
+					"deleted"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"FindAndCountResponse_RouteResponse_": {
+				"description": "Response with data array, count, limit and offset. Suited for Paging",
+				"properties": {
+					"data": {
+						"items": {
+							"$ref": "#/components/schemas/RouteResponse"
+						},
+						"type": "array"
+					},
+					"count": {
+						"type": "number",
+						"format": "double"
+					},
+					"limit": {
+						"type": "number",
+						"format": "double"
+					},
+					"offset": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"data",
+					"count"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"RouteDeleteResult": {
+				"description": "response on route deletion",
+				"properties": {
+					"checkpointsDeleteCount": {
+						"type": "number",
+						"format": "double"
+					},
+					"schedulesDeleteCount": {
+						"type": "number",
+						"format": "double"
+					},
+					"routeDeleteCount": {
+						"type": "number",
+						"format": "double"
+					},
+					"routeName": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"checkpointsDeleteCount",
+					"schedulesDeleteCount",
+					"routeDeleteCount"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"RouteCheckpointResponse": {
+				"description": "response of checkpoint apis",
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"setOrder": {
+						"type": "number",
+						"format": "double"
+					},
+					"layoutRow": {
+						"type": "number",
+						"format": "double"
+					},
+					"layoutCol": {
+						"type": "number",
+						"format": "double"
+					},
+					"cameras": {
+						"items": {
+							"$ref": "#/components/schemas/CameraResponse"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"id",
+					"setOrder",
+					"layoutRow",
+					"layoutCol",
+					"cameras"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"DateOfWeek": {
+				"description": "Sun, Mon, ..., Sat",
+				"enum": [
+					0,
+					1,
+					2,
+					3,
+					4,
+					5,
+					6
+				],
+				"type": "number"
+			},
+			"ExecuteTime": {
+				"properties": {
+					"endTime": {
+						"type": "number",
+						"format": "double"
+					},
+					"startTime": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"endTime",
+					"startTime"
+				],
+				"type": "object",
+				"description": "start and end times"
+			},
+			"RouteScheduleResponse": {
+				"description": "response of schedule apis",
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"startOccurrenceDate": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"endOccurrenceDate": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"executingDays": {
+						"items": {
+							"$ref": "#/components/schemas/DateOfWeek"
+						},
+						"type": "array"
+					},
+					"executingTime": {
+						"items": {
+							"$ref": "#/components/schemas/ExecuteTime"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"id",
+					"startOccurrenceDate",
+					"endOccurrenceDate",
+					"executingDays",
+					"executingTime"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"RouteDetailResponse": {
+				"description": "response for route detail including schedules and checkpoints",
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"siteId": {
+						"type": "number",
+						"format": "double"
+					},
+					"allowStartTime": {
+						"type": "number",
+						"format": "double"
+					},
+					"patrolMode": {
+						"type": "string"
+					},
+					"site": {
+						"$ref": "#/components/schemas/EntityOverallData"
+					},
+					"createdUserId": {
+						"type": "string"
+					},
+					"createdUserName": {
+						"type": "string"
+					},
+					"assignedUsers": {
+						"items": {
+							"$ref": "#/components/schemas/EntityOverallData"
+						},
+						"type": "array"
+					},
+					"reminderTime": {
+						"type": "number",
+						"format": "double"
+					},
+					"deleted": {
+						"type": "boolean"
+					},
+					"routeCheckpoints": {
+						"items": {
+							"$ref": "#/components/schemas/RouteCheckpointResponse"
+						},
+						"type": "array"
+					},
+					"routeSchedules": {
+						"items": {
+							"$ref": "#/components/schemas/RouteScheduleResponse"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"id",
+					"name",
+					"createdAt",
+					"siteId",
+					"allowStartTime",
+					"patrolMode",
+					"site",
+					"createdUserId",
+					"createdUserName",
+					"assignedUsers",
+					"reminderTime",
+					"deleted"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"RouteRequestBody": {
+				"description": "request body for update and creation of route",
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"siteId": {
+						"type": "number",
+						"format": "double"
+					},
+					"allowStartTime": {
+						"type": "number",
+						"format": "double"
+					},
+					"patrolMode": {
+						"type": "string"
+					},
+					"assignedUserIds": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"reminderTime": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"name",
+					"siteId",
+					"allowStartTime",
+					"patrolMode",
+					"assignedUserIds",
+					"reminderTime"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Entity": {
+				"description": "Entity data is produced.",
+				"properties": {
+					"data": {}
+				},
+				"required": [
+					"data"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"EntityList": {
+				"description": "List of entity data",
+				"properties": {
+					"entities": {
+						"items": {
+							"$ref": "#/components/schemas/Entity"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"entities"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"RouteCheckpointRequest": {
+				"description": "request body for update and creation of checkpoint",
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"setOrder": {
+						"type": "number",
+						"format": "double"
+					},
+					"layoutRow": {
+						"type": "number",
+						"format": "double"
+					},
+					"layoutCol": {
+						"type": "number",
+						"format": "double"
+					},
+					"cameraIds": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"setOrder",
+					"layoutRow",
+					"layoutCol",
+					"cameraIds"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"RouteScheduleRequest": {
+				"description": "request body for update and creation of schedule",
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"startOccurrenceDate": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"endOccurrenceDate": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"executingDays": {
+						"items": {
+							"$ref": "#/components/schemas/DateOfWeek"
+						},
+						"type": "array"
+					},
+					"executingTime": {
+						"items": {
+							"$ref": "#/components/schemas/ExecuteTime"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"startOccurrenceDate",
+					"endOccurrenceDate",
+					"executingDays",
+					"executingTime"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"SiteResponse": {
+				"description": "response of site apis",
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"noCameras": {
+						"type": "number",
+						"format": "double"
+					},
+					"deleted": {
+						"type": "boolean"
+					},
+					"cameras": {
+						"items": {
+							"$ref": "#/components/schemas/EntityOverallData"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"id",
+					"name",
+					"description",
+					"noCameras"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"FindAndCountResponse_SiteResponse_": {
+				"description": "Response with data array, count, limit and offset. Suited for Paging",
+				"properties": {
+					"data": {
+						"items": {
+							"$ref": "#/components/schemas/SiteResponse"
+						},
+						"type": "array"
+					},
+					"count": {
+						"type": "number",
+						"format": "double"
+					},
+					"limit": {
+						"type": "number",
+						"format": "double"
+					},
+					"offset": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"data",
+					"count"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"SiteRequestBody": {
+				"description": "request body of site",
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"cameras": {
+						"items": {
+							"$ref": "#/components/schemas/EntityOverallData"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"name",
+					"description"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"SopList": {
+				"description": "sop list as response",
+				"properties": {
+					"data": {
+						"items": {
+							"$ref": "#/components/schemas/SopResponse"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"data"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"SopCreateBody": {
+				"description": "response of creating sop",
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"type": {
+						"$ref": "#/components/schemas/SopType"
+					},
+					"startDate": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"endDate": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"checklists": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"name",
+					"type",
+					"startDate"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"SopUpdateBody": {
+				"description": "request body of updating sop",
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"type": {
+						"$ref": "#/components/schemas/SopType"
+					},
+					"startDate": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"endDate": {
+						"type": "string",
+						"format": "date-time"
+					}
+				},
+				"required": [
+					"name",
+					"type"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"TaskStatus": {
+				"description": "Task Status. Pending, OnGoing, NotStarted, Paused, Completed, Incomplete, Missed",
+				"enum": [
+					"Pending",
+					"OnGoing",
+					"NotStarted",
+					"Paused",
+					"Completed",
+					"Incomplete",
+					"Missed"
+				],
+				"type": "string"
+			},
+			"Record_number.TaskReportRowData-Array_": {
+				"properties": {},
+				"type": "object",
+				"description": "Construct a type with a set of properties K of type T"
+			},
+			"RouteTaskResponse": {
+				"description": "task response",
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"occurrenceDate": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"startTime": {
+						"type": "number",
+						"format": "double"
+					},
+					"endTime": {
+						"type": "number",
+						"format": "double"
+					},
+					"status": {
+						"$ref": "#/components/schemas/TaskStatus"
+					},
+					"startComment": {
+						"type": "string"
+					},
+					"endComment": {
+						"type": "string"
+					},
+					"routeId": {
+						"type": "string"
+					},
+					"route": {
+						"$ref": "#/components/schemas/RouteResponse"
+					},
+					"lastCheckpointId": {
+						"type": "string"
+					},
+					"reportCreatedAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"reportDataRows": {
+						"$ref": "#/components/schemas/Record_number.TaskReportRowData-Array_"
+					}
+				},
+				"required": [
+					"id",
+					"name",
+					"occurrenceDate",
+					"startTime",
+					"endTime",
+					"status",
+					"startComment",
+					"endComment",
+					"routeId",
+					"route",
+					"lastCheckpointId",
+					"reportCreatedAt"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"FindAndCountResponse_RouteTaskResponse_": {
+				"description": "Response with data array, count, limit and offset. Suited for Paging",
+				"properties": {
+					"data": {
+						"items": {
+							"$ref": "#/components/schemas/RouteTaskResponse"
+						},
+						"type": "array"
+					},
+					"count": {
+						"type": "number",
+						"format": "double"
+					},
+					"limit": {
+						"type": "number",
+						"format": "double"
+					},
+					"offset": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"data",
+					"count"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"TaskSummaryReportResponse": {
+				"description": "Task Summary Report Response",
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"site": {
+						"$ref": "#/components/schemas/EntityOverallData"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					}
+				},
+				"required": [
+					"id",
+					"site",
+					"createdAt"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"FindAndCountResponse_TaskSummaryReportResponse_": {
+				"description": "Response with data array, count, limit and offset. Suited for Paging",
+				"properties": {
+					"data": {
+						"items": {
+							"$ref": "#/components/schemas/TaskSummaryReportResponse"
+						},
+						"type": "array"
+					},
+					"count": {
+						"type": "number",
+						"format": "double"
+					},
+					"limit": {
+						"type": "number",
+						"format": "double"
+					},
+					"offset": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"data",
+					"count"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Record_string.TaskStatusRecord-Array_": {
+				"properties": {},
+				"type": "object",
+				"description": "Construct a type with a set of properties K of type T"
+			},
+			"TaskMonthlyReportDetailResponse": {
+				"description": "Task Report Response for monthly",
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"site": {
+						"$ref": "#/components/schemas/EntityOverallData"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"taskCounts": {
+						"$ref": "#/components/schemas/Record_TaskStatus.number_"
+					},
+					"taskStatusRecords": {
+						"$ref": "#/components/schemas/Record_string.TaskStatusRecord-Array_"
+					}
+				},
+				"required": [
+					"id",
+					"site",
+					"createdAt",
+					"taskCounts",
+					"taskStatusRecords"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AlertData": {
+				"description": "Alert Data Schema",
+				"properties": {
+					"type": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"actionsTaken": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"type",
+					"description",
+					"actionsTaken"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"RaiseAlertRequestBody": {
+				"description": "Request Body for raising alert",
+				"properties": {
+					"cameraId": {
+						"type": "string"
+					},
+					"checkpointId": {
+						"type": "string"
+					},
+					"snapshotTimeInEpoch": {
+						"type": "number",
+						"format": "double"
+					},
+					"alert": {
+						"$ref": "#/components/schemas/AlertData"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AcknowledgeRequestBody": {
+				"description": "Request Body for acknowledge",
+				"properties": {
+					"cameraId": {
+						"type": "string"
+					},
+					"checkpointId": {
+						"type": "string"
+					},
+					"snapshotTimeInEpoch": {
+						"type": "number",
+						"format": "double"
+					},
+					"comment": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CameraData": {
+				"description": "Camera Data used in comment request and task report raw data",
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"snapshotTimeInEpoch": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"id",
+					"snapshotTimeInEpoch"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CommentRequestBody": {
+				"description": "Request Body for comment",
+				"properties": {
+					"cameras": {
+						"items": {
+							"$ref": "#/components/schemas/CameraData"
+						},
+						"type": "array"
+					},
+					"checkpointId": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"cameras",
+					"checkpointId"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"email": {
+				"type": "string",
+				"example": "member@vps.com",
+				"pattern": "[a-z0-9]+@[a-z]+\\.[a-z]{2,3}"
+			},
+			"LoginResponse": {
+				"description": "response of login api",
+				"properties": {
+					"jwt": {
+						"type": "string"
+					},
+					"user": {
+						"properties": {
+							"avatar": {
+								"type": "string"
+							},
+							"nxToken": {
+								"type": "string"
+							},
+							"tokenExpiredAt": {
+								"type": "string",
+								"format": "date-time"
+							},
+							"latestLogin": {
+								"type": "string",
+								"format": "date-time"
+							},
+							"role": {
+								"$ref": "#/components/schemas/UUID"
+							},
+							"email": {
+								"$ref": "#/components/schemas/email"
+							},
+							"name": {
+								"type": "string"
+							},
+							"id": {
+								"$ref": "#/components/schemas/UUID"
+							}
+						},
+						"required": [
+							"avatar",
+							"nxToken",
+							"tokenExpiredAt",
+							"latestLogin",
+							"role",
+							"email",
+							"name",
+							"id"
+						],
+						"type": "object"
+					}
+				},
+				"required": [
+					"jwt",
+					"user"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"LoginRequest": {
+				"description": "request of login api",
+				"properties": {
+					"email": {
+						"$ref": "#/components/schemas/email",
+						"description": "email of user account"
+					},
+					"password": {
+						"type": "string",
+						"description": "password of user account"
+					},
+					"nxWitnessLogin": {
+						"type": "boolean",
+						"description": "is user using NX Witness Account?"
+					}
+				},
+				"required": [
+					"email",
+					"password",
+					"nxWitnessLogin"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"SuccessResponse": {
+				"description": "success response on logout",
+				"properties": {
+					"success": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"success"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UserResponse": {
+				"description": "response of user apis",
+				"properties": {
+					"id": {
+						"$ref": "#/components/schemas/UUID"
+					},
+					"nxWitnessId": {
+						"type": "string"
+					},
+					"avatar": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"email": {
+						"$ref": "#/components/schemas/email"
+					},
+					"callingCode": {
+						"type": "string"
+					},
+					"phoneNumber": {
+						"type": "string"
+					},
+					"roleId": {
+						"$ref": "#/components/schemas/UUID"
+					},
+					"status": {
+						"type": "string"
+					},
+					"isVerified": {
+						"type": "boolean"
+					},
+					"blockingReason": {
+						"type": "string"
+					},
+					"role": {
+						"type": "string"
+					},
+					"latestLogin": {
+						"type": "string",
+						"format": "date-time"
+					}
+				},
+				"required": [
+					"id",
+					"nxWitnessId",
+					"avatar",
+					"name",
+					"email",
+					"callingCode",
+					"phoneNumber",
+					"roleId",
+					"status",
+					"isVerified",
+					"blockingReason",
+					"role",
+					"latestLogin"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UserList": {
+				"description": "user list as response",
+				"properties": {
+					"data": {
+						"items": {
+							"$ref": "#/components/schemas/UserResponse"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"data"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UserUpdateBody": {
+				"description": "request body of updating user information",
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"roleId": {
+						"$ref": "#/components/schemas/UUID"
+					},
+					"callingCode": {
+						"type": "string"
+					},
+					"phoneNumber": {
+						"type": "string"
+					},
+					"avatarUrl": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"name",
+					"roleId",
+					"callingCode",
+					"phoneNumber",
+					"avatarUrl"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"VerifyEmailBody": {
+				"description": "request body on verifying user's email",
+				"properties": {
+					"email": {
+						"$ref": "#/components/schemas/email"
+					},
+					"password": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"email",
+					"password"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"BooleanResponse": {
+				"description": "success response on logout",
+				"properties": {
+					"data": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"data"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UserCreationBody": {
+				"description": "request body of creating user",
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"email": {
+						"$ref": "#/components/schemas/email"
+					},
+					"roleId": {
+						"$ref": "#/components/schemas/UUID"
+					},
+					"callingCode": {
+						"type": "string"
+					},
+					"phoneNumber": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"name",
+					"email",
+					"roleId",
+					"callingCode",
+					"phoneNumber"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ForgetPasswordResponse": {
+				"description": "Response when asking for forget password",
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"userId": {
+						"type": "string"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"user": {
+						"$ref": "#/components/schemas/UserResponse"
+					}
+				},
+				"required": [
+					"id",
+					"userId",
+					"createdAt",
+					"user"
+				],
+				"type": "object",
+				"additionalProperties": false
+			}
+		},
+		"securitySchemes": {
+			"Authorization": {
+				"type": "apiKey",
+				"name": "Authorization",
+				"in": "header",
+				"description": "Bearer Token get from Login API (JWT)"
+			}
+		}
+	},
+	"info": {
+		"title": "swagger-service",
+		"version": "1.0.0",
+		"license": {
+			"name": "MIT"
+		},
+		"contact": {
+			"name": "VPS"
+		}
+	},
+	"openapi": "3.0.0",
+	"paths": {
+		"/activity/list": {
+			"get": {
+				"operationId": "ListActivity",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ActivityResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Activity"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "limit",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "offset",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "userId",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "types",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "from",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "to",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/activity": {
+			"post": {
+				"operationId": "CreateNewActivity",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ActivityResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Activity"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ActivityCreateBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/alert-type/list": {
+			"get": {
+				"operationId": "ListAlertType",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AlertTypeList"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Alert Type"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "limit",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "offset",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/alert-type/count": {
+			"get": {
+				"operationId": "CountAlertType",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/CountResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Alert Type"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": []
+			}
+		},
+		"/alert-type/{id}": {
+			"get": {
+				"operationId": "GetAlertTypeById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AlertTypeResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Alert Type"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"delete": {
+				"operationId": "DeleteAlertTypeById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AlertTypeResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Alert Type"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"put": {
+				"operationId": "UpdateAlertType",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AlertTypeResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Alert Type"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/AlertTypeRequestBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/alert-type": {
+			"post": {
+				"operationId": "CreateAlertType",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AlertTypeResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Alert Type"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/AlertTypeRequestBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/camera/list": {
+			"get": {
+				"operationId": "ListCamera",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/CameraList"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Camera"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "searchText",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "siteId",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "limit",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "offset",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/camera/count": {
+			"get": {
+				"operationId": "CountCamera",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/CountResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Camera"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": []
+			}
+		},
+		"/camera/{id}": {
+			"get": {
+				"operationId": "GetCameraById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/CameraResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Camera"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"delete": {
+				"operationId": "DeleteCameraById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/CameraResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Camera"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"put": {
+				"operationId": "UpdateCameraById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/CameraResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Camera"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CameraUpdateBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/dashboard-analytics": {
+			"get": {
+				"operationId": "GetDashboardAnalytics",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/DashboardAnalyticsResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Dashboard Analytics"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "siteId",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "date",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/file/image": {
+			"post": {
+				"operationId": "UploadImage",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"File"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"file": {
+										"type": "string",
+										"format": "binary"
+									}
+								},
+								"required": [
+									"file"
+								]
+							}
+						}
+					}
+				}
+			}
+		},
+		"/notification/list": {
+			"get": {
+				"operationId": "ListNotification",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/FindAndCountResponse_AppNotification_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Notification"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "limit",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "offset",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/notification/count": {
+			"get": {
+				"operationId": "CountNotification",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/NotiCountResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Notification"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": []
+			}
+		},
+		"/notification/{id}": {
+			"delete": {
+				"operationId": "DeleteNotificationById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "boolean"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Notification"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"put": {
+				"operationId": "ReadNotificationById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Notification"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/notification": {
+			"delete": {
+				"operationId": "DeleteNotificationList",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/DeleteResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Notification"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": []
+			},
+			"put": {
+				"operationId": "ReadNotification",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Notification"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": []
+			}
+		},
+		"/route/list": {
+			"get": {
+				"operationId": "ListRoutes",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/FindAndCountResponse_RouteResponse_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Route"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "limit",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "offset",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/route/count": {
+			"get": {
+				"operationId": "CountRoute",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/CountResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Route"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "searchText",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/route/{id}": {
+			"get": {
+				"operationId": "GetRouteById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/RouteResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Route"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"delete": {
+				"operationId": "DeleteRouteById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/RouteDeleteResult"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Route"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"put": {
+				"operationId": "UpdateRoute",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/RouteDetailResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Route"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/route": {
+			"post": {
+				"operationId": "CreateRoute",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/RouteDetailResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Route"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": false,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/RouteRequestBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/route/{routeId}/checkpoint/list": {
+			"get": {
+				"operationId": "ListCheckpoints",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/EntityList"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Route"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "routeId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"post": {
+				"operationId": "CreateCheckpointByRouteId",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/RouteCheckpointResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Route"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "routeId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": false,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/RouteCheckpointRequest"
+							}
+						}
+					}
+				}
+			},
+			"put": {
+				"operationId": "UpdateCheckpointByRouteId",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/RouteCheckpointResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Route"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "routeId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": false,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/RouteCheckpointRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/route/checkpoint/{id}": {
+			"get": {
+				"operationId": "GetCheckpointById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Entity"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Route"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/route/checkpoint/list": {
+			"get": {
+				"operationId": "DeleteCheckpoints",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/DeleteResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Route"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "ids",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/route/{routeId}/schedule/list": {
+			"get": {
+				"operationId": "ListSchedules",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/EntityList"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Route"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "routeId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"post": {
+				"operationId": "CreateScheduleByRouteId",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/RouteScheduleResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Route"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "routeId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": false,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/RouteScheduleRequest"
+							}
+						}
+					}
+				}
+			},
+			"put": {
+				"operationId": "UpdateScheduleByRouteId",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/RouteScheduleResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Route"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "routeId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": false,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/RouteScheduleRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/route/schedule/{id}": {
+			"get": {
+				"operationId": "GetScheduleById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Entity"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Route"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/route/schedule/list": {
+			"get": {
+				"operationId": "DeleteSchedules",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/DeleteResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Route"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "ids",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/site/list": {
+			"get": {
+				"operationId": "ListSite",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/FindAndCountResponse_SiteResponse_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Site"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "limit",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "offset",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/site/count": {
+			"get": {
+				"operationId": "CountSite",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/CountResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Site"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "searchText",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/site/{id}": {
+			"get": {
+				"operationId": "GetSiteById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/SiteResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Site"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"delete": {
+				"operationId": "DeleteSiteById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/SiteResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Site"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"put": {
+				"operationId": "UpdateSite",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/SiteResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Site"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SiteRequestBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/site": {
+			"post": {
+				"operationId": "CreateSite",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/SiteResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Site"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SiteRequestBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/sop/list": {
+			"get": {
+				"operationId": "ListSop",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/SopList"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"SOP"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "searchText",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "type",
+						"required": false,
+						"schema": {
+							"$ref": "#/components/schemas/SopType"
+						}
+					},
+					{
+						"in": "query",
+						"name": "limit",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "offset",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/sop/count": {
+			"get": {
+				"operationId": "CountSop",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/CountResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"SOP"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": []
+			}
+		},
+		"/sop/{id}": {
+			"get": {
+				"operationId": "GetSopById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/SopResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"SOP"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"delete": {
+				"operationId": "DeleteSopById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/SopResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"SOP"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"put": {
+				"operationId": "UpdateSop",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/SopResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"SOP"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SopUpdateBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/sop": {
+			"post": {
+				"operationId": "CreateSop",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/SopResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"SOP"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SopCreateBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/task/list": {
+			"get": {
+				"operationId": "ListTasks",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/FindAndCountResponse_RouteTaskResponse_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Task"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "limit",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "offset",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "fromDate",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "toDate",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "filterStatuses",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "searchText",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "siteId",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "filterShift",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/task/count": {
+			"get": {
+				"operationId": "CountTask",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/CountResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Task"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "fromDate",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "toDate",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "filterStatuses",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/task/{id}": {
+			"get": {
+				"operationId": "GetTaskById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/RouteTaskResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Task"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/task/monthly-report/list": {
+			"get": {
+				"operationId": "ListMonthlyReportById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/FindAndCountResponse_TaskSummaryReportResponse_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Task"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "siteId",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "month",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "limit",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "offset",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/task/daily-report/list": {
+			"get": {
+				"operationId": "ListDailyReportById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/FindAndCountResponse_TaskSummaryReportResponse_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Task"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "siteId",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "day",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "limit",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "offset",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/task/monthly-report/{id}": {
+			"get": {
+				"operationId": "GetMonthlyReportById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/TaskMonthlyReportDetailResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Task"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/task/{id}/raise-alert": {
+			"post": {
+				"operationId": "RaiseAlert",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Entity"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Task"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/RaiseAlertRequestBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/task/{id}/acknowledge": {
+			"post": {
+				"operationId": "Acknowledge",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Entity"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Task"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/AcknowledgeRequestBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/task/{id}/comment": {
+			"post": {
+				"operationId": "Comment",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Entity"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Task"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CommentRequestBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/task/{id}/start": {
+			"post": {
+				"operationId": "Start",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/RouteResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Task"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/RaiseAlertRequestBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/task/{id}/end": {
+			"post": {
+				"operationId": "End",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/RouteResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Task"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/AcknowledgeRequestBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/task/{id}/resume": {
+			"post": {
+				"operationId": "Resume",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/RouteResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Task"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CommentRequestBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/task/{id}/ongoing": {
+			"post": {
+				"operationId": "Ongoing",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/RouteResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Task"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/RaiseAlertRequestBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/task/{id}/pause": {
+			"post": {
+				"operationId": "Pause",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/RouteResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Task"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/AcknowledgeRequestBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/user/login": {
+			"post": {
+				"operationId": "Login",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/LoginResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/LoginRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/user/logout": {
+			"post": {
+				"operationId": "Logout",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/SuccessResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": []
+			}
+		},
+		"/user/list": {
+			"get": {
+				"operationId": "ListUser",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UserList"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": []
+			}
+		},
+		"/user/count": {
+			"get": {
+				"operationId": "CountUser",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/CountResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": []
+			}
+		},
+		"/user/{id}": {
+			"get": {
+				"operationId": "GetUserById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UserResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"delete": {
+				"operationId": "DeleteUserById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UserResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"put": {
+				"operationId": "UpdateUserById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UserResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UserUpdateBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/user": {
+			"put": {
+				"operationId": "SelfUpdateUser",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UserResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UserUpdateBody"
+							}
+						}
+					}
+				}
+			},
+			"post": {
+				"operationId": "CreateUser",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UserResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UserCreationBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/user/verify-email/{id}": {
+			"post": {
+				"operationId": "VerifyEmailForUser",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UserResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/VerifyEmailBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/user/forget-password": {
+			"post": {
+				"operationId": "CreateForgetPassword",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BooleanResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UserCreationBody"
+							}
+						}
+					}
+				}
+			},
+			"get": {
+				"operationId": "CheckForgetPasswordKey",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ForgetPasswordResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/user/block": {
+			"put": {
+				"operationId": "BlockUser",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UserResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/user/activate": {
+			"put": {
+				"operationId": "ActivateUser",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UserResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User"
+				],
+				"security": [
+					{
+						"Authorization": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "http://localhost:9000/apis",
+			"description": "Local environment"
+		}
+	]
+}

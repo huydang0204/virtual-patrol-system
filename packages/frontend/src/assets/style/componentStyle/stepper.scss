@@ -1,0 +1,16 @@
+.stepper-container {
+  max-width: 50%;
+  padding: 0;
+
+  .step-number {
+    padding: 5px 9px;
+    border-radius: 50%;
+    margin-top: 3px;
+  }
+
+  .step-line {
+    height: 0.5px;
+    min-width: 100px;
+    margin-top: 20px;
+  }
+}

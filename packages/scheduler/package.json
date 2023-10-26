@@ -1,0 +1,36 @@
+{
+  "name": "@vps/scheduler",
+  "private": true,
+  "version": "1.0.0",
+  "author": "Huy Dang",
+  "license": "MIT",
+  "scripts": {
+    "start": "ENV=production node ./dist/index.js",
+    "dev": "nodemon",
+    "build": "rm -f -r dist && tsc && tsc-alias",
+    "debug": "npm run build && node --inspect ./dist/index.js",
+    "test": "ts-node ./src/test.ts"
+  },
+  "dependencies": {
+    "@vps/utils": "0.0.1",
+    "async-mqtt": "^2.6.3",
+    "date-fns": "^2.30.0",
+    "dotenv": "^16.0.1",
+    "mysql2": "^2.3.3",
+    "node-cron": "^3.0.2",
+    "nodemailer": "^6.7.8",
+    "pg": "^8.11.3",
+    "redis": "^4.6.5",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.3.14",
+    "uuid": "^8.3.2",
+    "winston": "^3.8.1",
+    "winston-daily-rotate-file": "^4.7.1"
+  },
+  "devDependencies": {
+    "@types/node": "^18.6.4",
+    "@types/node-cron": "^3.0.4",
+    "@types/nodemailer": "^6.4.5",
+    "@types/uuid": "^8.3.4"
+  }
+}

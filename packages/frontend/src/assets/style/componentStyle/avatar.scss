@@ -1,0 +1,53 @@
+.avatar {
+  position: relative;
+  display: inline-block;
+
+  .avatar-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+    overflow: hidden;
+
+    .upload-button {
+      display: none;
+    }
+
+    &:hover {
+      .middle {
+        opacity: 1;
+      }
+
+      .image {
+        opacity: 0.3;
+      }
+
+      .upload-button {
+        display: block;
+      }
+    }
+  }
+
+  .default-avatar-icon {
+    font-size: 3rem;
+    position: absolute;
+    top: 26%;
+    left: 26%;
+  }
+}
+
+.avatar-in-table, .no-avatar {
+  width : 30px;
+  height : 30px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.activity-icon {
+  width : 30px;
+  height : 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+}
+

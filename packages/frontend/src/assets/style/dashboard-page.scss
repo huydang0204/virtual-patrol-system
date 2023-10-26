@@ -1,0 +1,30 @@
+#dashboard-page {
+    .btn-clear-filter {
+        left: -100px;
+        cursor: pointer;
+        top: 10px;
+
+        &:hover {
+            color : #3083FA;
+
+            .btn-clear-filter-icon {
+                color: white;
+                background-color: #3083FA;
+            }
+
+            .btn-clear-filter-text {
+                color : #3083FA;
+            }
+        }
+
+        .btn-clear-filter-icon {
+            padding: 1px;
+            color: white;
+            background-color: #7C8590;
+        }
+
+        .btn-clear-filter-text {
+            color : #7C8590;
+        }
+    }
+}

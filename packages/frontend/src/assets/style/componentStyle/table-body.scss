@@ -1,0 +1,26 @@
+.tbody {
+  .table-cell {
+    padding: 0.7rem 1.5rem;
+    white-space: nowrap;
+    position: relative;
+
+    max-width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.tbody.dark {
+  .stripped {
+    background-color: $gray-999;
+  }
+}
+
+.tbody.light {
+  color: $gray-999;
+
+  .table-cell {
+    background-color: $white;
+  }
+}

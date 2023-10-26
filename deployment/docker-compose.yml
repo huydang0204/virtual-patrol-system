@@ -1,0 +1,80 @@
+version: '3.8'
+services:
+  vps-frontend:
+    image: ghcr.io/huydang0204/virtual-patrol-system-frontend:latest
+    container_name: vps-frontend
+    restart: always
+    ports:
+      - 80:80
+    volumes:
+      - /home/devs/docker_volumes/nginx.conf:/etc/nginx/conf.d/default.conf
+      - /home/devs/docker_volumes/vps/media:/usr/share/nginx/media
+
+  vps-main-backend:
+    image: ghcr.io/huydang0204/virtual-patrol-system-main-backend:latest
+    container_name: vps-main-backend
+    restart: always
+    depends_on:
+      - redis
+    volumes:
+      - /home/devs/docker_volumes/vps/main-backend/logs:/app/packages/main-backend/logs
+      - /home/devs/docker_volumes/vps/media:/app/packages/main-backend/uploads
+    environment:
+      - ENV=production
+      - PORT=9000
+      - DB_CONNECTION=172.16.40.7
+      - DB_PORT=5432
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=vps_dev
+      - NX_WITNESS_URL=${INTERNAL_NX_WITNESS_URL}
+      - REDIS_HOST=${REDIS_HOST}
+      - NX_WITNESS_USERNAME=${INTERNAL_NX_WITNESS_USERNAME}
+      - NX_WITNESS_PASSWORD=${INTERNAL_NX_WITNESS_PASSWORD}
+      - UPLOAD_FILE_PATH=${UPLOAD_FILE_PATH}
+      - TZ=${TIMEZONE}
+      - EMAIL_ENABLE=${BACKEND_EMAIL_ENABLE}
+      - FE_URL=${FE_URL}
+    ports:
+      - 3101:9000
+
+  vps-scheduler:
+    image: ghcr.io/huydang0204/virtual-patrol-system-scheduler:latest
+    container_name: vps-scheduler
+    restart: always
+    depends_on:
+      - redis
+    volumes:
+      - /home/devs/docker_volumes/vps/scheduler/logs:/app/packages/scheduler/logs
+    environment:
+      - ENV=production
+      - DB_CONNECTION=172.16.40.7
+      - DB_PORT=5432
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=vps_dev
+      - NX_WITNESS_URL=${INTERNAL_NX_WITNESS_URL}
+      - REDIS_HOST=${REDIS_HOST}
+      - NX_WITNESS_USERNAME=${INTERNAL_NX_WITNESS_USERNAME}
+      - NX_WITNESS_PASSWORD=${INTERNAL_NX_WITNESS_PASSWORD}
+      - TZ=${TIMEZONE}
+      - EMAIL_ENABLE=${BACKEND_EMAIL_ENABLE}
+      - FE_URL=${FE_URL}
+
+  eclipse-mosquitto:
+    image: eclipse-mosquitto:latest
+    restart: always
+    expose:
+      - 1883
+      - 1884
+    ports:
+      - 1883:1883
+      - 1884:1884
+    volumes:
+      - /home/devs/docker_volumes/mosquitto:/mosquitto/config
+
+  redis:
+    image: redis:latest
+    restart: always
+    ports:
+      - 6379:6379

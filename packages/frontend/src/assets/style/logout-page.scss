@@ -1,0 +1,25 @@
+#logout-page {
+    position: relative;
+    height: 100vh;
+    background-color: $white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .company-logo img {
+        width: 150px;
+        height: auto;
+        position: absolute;
+        top: 50px;
+        left: 50px;
+      }
+    
+    .logout-details {
+        max-width: 400px;
+
+        .btn-return-to-login {
+            width : 100%;
+            margin-top: 5px;
+        }
+    }
+}
